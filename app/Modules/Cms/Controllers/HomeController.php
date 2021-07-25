@@ -4,19 +4,17 @@ namespace App\Modules\Cms\Controllers;
 use App\Modules\Cms\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Exports\UsersExport;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\SendEmail;
 use DB;
 use Session;
-use Barryvdh\DomPDF\Facade as PDF;
-use App\Imports\UsersImport;
+use Validator;
 use Illuminate\Support\Facades\Cache;
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::where('is_delete',0)->paginate(4);
+       // $users = User::where('is_delete',0)->orderBy('id', 'DESC')->paginate(4);
+
         if($request->ajax()){
             $params = [
                 'name--like' => $request->name,
@@ -28,28 +26,22 @@ class HomeController extends Controller
                 Session::forget('params');
             }
             Session::push('params', $params);
-            //filter bằng Trait tạo trong app\Traits\Filterable.php
-            $users = User::where('is_delete',0)->filter($params)->orderBy('id', 'DESC')->paginate(4);
-            Cache::put('result_filter', $users, 600);
+
+
+            //cache
+            if($request->name==''){
+                $users = User::where('is_delete',0)->filter($params)->orderBy('id', 'DESC')->paginate(4);
+
+            }else {
+                $page = request()->get('page', 1);
+                $users = Cache::remember($request->name . $page, 600, function () use ($params) {
+                    return User::where('is_delete', 0)->filter($params)->orderBy('id', 'DESC')->paginate(4);
+                });
+
+            }
             return view('user.data-home',compact('users'));
         }
-        return view('user.home',compact('users'));
-    }
-
-    public function exportExcel(){
-        $params = Session('params')?Session::get('params'):null;
-        return Excel::download(new UsersExport($params), 'users.xlsx');
-    }
-    public function exportPDF(){
-        $params = Session('params')?Session::get('params'):null;
-        $users = User::where('is_delete',0)->filter($params[0])->get();
-        $pdf = PDF::loadView('user.data-pdf',  compact('users'));
-        return $pdf->download('users.pdf');
-
-    }
-    public function importExcel(Request $request){
-        $import = Excel::import(new UsersImport, request()->file('file_excel'));
-        return redirect()->back()->with('success', 'Success!!!');
+        return view('user.home');
     }
 
     public function sendEmail(Request $request){

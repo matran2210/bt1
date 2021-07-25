@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Modules\Cms\Controllers;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use App\Modules\Cms\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Session;
 use Validator;
 use Carbon\Carbon;
@@ -83,11 +87,6 @@ class UserController extends Controller
     }
 
 
-
-
-
-
-
     public function getListUser(Request $request){
         if($request->ajax()){
             $arr_id = $request->arr_idUser;
@@ -106,6 +105,40 @@ class UserController extends Controller
                $user->save();
             }
         }
+    }
+
+
+    public function exportExcel(){
+        $params = Session('params')?Session::get('params'):null;
+        return Excel::download(new UsersExport($params), 'users.xlsx');
+    }
+    public function exportPDF(){
+        $params = Session('params')?Session::get('params'):null;
+        $users = User::where('is_delete',0)->filter($params[0])->get();
+        $pdf = PDF::loadView('user.data-pdf',  compact('users'));
+        return $pdf->download('users.pdf');
+
+    }
+    public function importExcel(Request $request){
+        $extension ='';
+        if($request->file('file_excel')!=null){
+            $extension = strtolower($request->file('file_excel')->getClientOriginalExtension());
+        }
+        $req = array(
+            'file'=>$request->file(),
+            'extension' => $extension
+        );
+        $rules = array(
+            'file'          => 'required',
+            'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp',
+        );
+        $error = Validator::make($req, $rules);
+        if($error->fails())
+        {
+            return redirect()->back()->with(['errors' => $error->errors()->all()]);
+        }
+        $import = Excel::import(new UsersImport, request()->file('file_excel'));
+        return redirect()->back()->with('success', 'Success!!!');
     }
 
 }

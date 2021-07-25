@@ -17,7 +17,7 @@ class UsersExport implements FromCollection,WithHeadings
     }
     public function collection()
     {
-       $users =   User::where('is_delete',0)->filter($this->params[0])->orderBy('id','DESC')->get();
+       $users =   User::where('is_delete',0)->filter($this->params[0])->orderBy('id','ASC')->get();
         $output = [];
         //lọc ra các cột cần đưa vào excel
         foreach ($users as $user)
