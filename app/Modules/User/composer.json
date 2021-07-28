@@ -1,0 +1,17 @@
+{
+    "name": "matran2210/user-module",
+    "description": "module user",
+    "type": "laravel-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "matran2210",
+            "email": "doancuongB10@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "maatwebsite/excel": "^3.1",
+        "schulzefelix/laravel-bigquery": "1.1.2"
+    }
+}

@@ -3,7 +3,7 @@
 namespace App\Modules\Cms\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Filterable;
+use App\Modules\Cms\Traits\Filterable;
 class User extends Model
 {
 
