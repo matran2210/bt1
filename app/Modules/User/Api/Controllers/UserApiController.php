@@ -1,8 +1,7 @@
 <?php
+namespace App\Modules\User\Api\Controllers;
 
-namespace App\Modules\Api\Controllers;
-
-use App\Modules\Cms\Models\User;
+use App\Modules\User\Cms\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

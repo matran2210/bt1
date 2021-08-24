@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Modules\Cms\Models;
-
+namespace App\Modules\User\Cms\Models;
+use App\Modules\User\Cms\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
-use App\Modules\Cms\Traits\Filterable;
 class User extends Model
 {
 

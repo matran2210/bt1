@@ -33,6 +33,7 @@
 
         <button class="mb-3 ml-1 btn btn-secondary"  id="btn_delete_multiple"> <i class="fa fa-trash" aria-hidden="true"></i> Xóa</button>
 
+        <a href="{{route('get_view_add_user_realtime')}}" class="mb-3 ml-1 btn btn-secondary"  id="add_realtime"> <i class="fa fa-info" aria-hidden="true"></i> Add</a>
 
 
 
@@ -288,10 +289,29 @@
     </div>
 
 
-
+{{--    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>--}}
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
         $(document).ready(function(){
-            fetch_data()
+            fetch_data();
+            // Enable pusher logging - don't include this in production
+            // Pusher.logToConsole = true;
+            // var pusher = new Pusher('f9f82a600cf77c2c77e0', {
+            //     cluster: 'ap1'
+            // });
+            // var channel = pusher.subscribe('my-channel');
+            // channel.bind('my-event', function(data) {
+            //     if(data.message = 'New User was created!'){
+            //         alert(data.message);
+            //         fetch_data(); //ajax load lại dữ liệu bảng user
+            //     }
+            // });
+
+
+
+
+
+
             function fetch_data(page=1,name='',email='',status='',created_at='') {
                 $.ajax({
                     url: "/",

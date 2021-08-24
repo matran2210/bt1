@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Cms\Traits;
+namespace App\Modules\User\Cms\Traits;
 use Illuminate\Support\Str;
 trait Filterable
 {

@@ -11,7 +11,7 @@
 |
 */
 
-$module_namespace = "App\Modules\Api\Controllers";
+$module_namespace = "App\Modules\User\Api\Controllers";
 Route::group([
     'module' => 'Api',
     'middleware' => 'api-middleware',

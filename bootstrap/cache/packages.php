@@ -42,4 +42,15 @@
       0 => 'Carbon\\Laravel\\ServiceProvider',
     ),
   ),
+  'schulzefelix/laravel-bigquery' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'SchulzeFelix\\BigQuery\\BigQueryServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'BigQuery' => 'SchulzeFelix\\BigQuery\\BigQueryFacade',
+    ),
+  ),
 );

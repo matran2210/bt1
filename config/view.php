@@ -15,7 +15,7 @@ return [
 
     'paths' => [
         //resource_path('views'),
-        realpath(base_path('app/Modules/Cms/Views')),
+        realpath(base_path('app/Modules/User/Cms/Views')),
         realpath(base_path('resources/views')) . DIRECTORY_SEPARATOR.'default',
     ],
 

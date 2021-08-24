@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules;
+namespace App\Modules\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -26,12 +26,12 @@ class ModuleServiceProvider extends ServiceProvider
      */
 
     public function boot(){
-            //boot routes
-            $modules = array_map('basename', \File::directories(__DIR__));
-            foreach ($modules as $module) {
-                if(file_exists(__DIR__.'/'.$module.'/routes.php')) {
-                    include __DIR__.'/'.$module.'/routes.php';
-                }
+        //boot routes
+        $modules = array_map('basename', \File::directories(__DIR__));
+        foreach ($modules as $module) {
+            if(file_exists(__DIR__.'/'.$module.'/routes.php')) {
+                include __DIR__.'/'.$module.'/routes.php';
+            }
             //boot views
             $view_path = __DIR__.'/'.$module.'/Views';
             if(is_dir($view_path)) {

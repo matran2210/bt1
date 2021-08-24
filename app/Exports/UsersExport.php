@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Modules\Cms\Models\User;
+use App\Modules\User\Cms\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 class UsersExport implements FromCollection,WithHeadings

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Modules\Cms\Controllers;
+namespace App\Modules\User\Cms\Controllers;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
-use App\Modules\Cms\Models\User;
+use App\Modules\User\Cms\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
+use Google\Cloud\BigQuery\BigQueryClient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
@@ -19,6 +20,10 @@ class UserController extends Controller
 {
 
     public function addUser(Request $request){
+
+
+
+
         $rules = array(
             'email'    =>  'bail|required|email|unique:user,email',
             'password'     =>  'bail|required|min:3',

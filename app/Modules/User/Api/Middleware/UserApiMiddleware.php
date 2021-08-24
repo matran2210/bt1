@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Api\Middleware;
+namespace App\Modules\User\Api\Middleware;
 
 use Closure;
 use Log;
