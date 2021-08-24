@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Modules\Cms\Models\User;
+use App\Modules\User\Cms\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
